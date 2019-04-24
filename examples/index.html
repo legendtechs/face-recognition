@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>face recognition</title>
+</head>
+<body>
+    <facial-recognition
+      w="360"
+      h="360"
+      showcanvas="false"
+    >
+    </facial-recognition>
+  <script src="../index.js"></script>
+  <script type='module'>
+    let count = 0;
+    function timer(ms=1000) {
+      return new Promise(r => {
+        console.log('ms ', ms)
+        setTimeout(r, ms)
+      })
+    }
+    async function requestMock(params) {
+      const { data, onStop, onRetry } = params;
+      console.log('封装的data ', data);
+      count++;
+      console.log('count ', count)
+      await timer(Math.min(count * 500, 3000));
+      const p = new Promise(resolve => {
+        let flag = false;
+        if (count === 20) {
+          flag = true;
+          // count = 0;
+          resolve(flag);
+        }
+        onRetry && onRetry();
+        resolve(flag);
+      }, reject => {
+        onStop && onStop();
+        reject();
+      })
+      return await p;
+    }
+    window.onload = function() {
+      const dom = document.querySelector('face-recognition');
+      console.log('dom ', dom)
+      dom.addEventListener('photoMetaChange', r => {
+        console.log('result ', r.detail);
+        if (count > 20) {
+          return
+        }
+        const result = requestMock(r.detail);
+        console.log('request result ', result);
+      }, false);
+    }
+  </script>
+</body>
+</html>

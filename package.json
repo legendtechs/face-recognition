@@ -1,0 +1,12 @@
+{
+  "name": "facial-recognition",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "legendscott",
+  "private": false,
+  "description": "face recognition webcomponent",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
