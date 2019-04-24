@@ -10,10 +10,10 @@
     <facial-recognition
       w="360"
       h="360"
-      showcanvas="false"
+      showcanvas=false
     >
     </facial-recognition>
-  <script src="../index.js"></script>
+  <script src="../source/core.js"></script>
   <script type='module'>
     let count = 0;
     function timer(ms=1000) {
@@ -44,7 +44,7 @@
       return await p;
     }
     window.onload = function() {
-      const dom = document.querySelector('face-recognition');
+      const dom = document.querySelector('facial-recognition');
       console.log('dom ', dom)
       dom.addEventListener('photoMetaChange', r => {
         console.log('result ', r.detail);
